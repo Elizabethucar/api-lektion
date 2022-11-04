@@ -18,8 +18,9 @@ app.get('/api/user', (req, res) => {
     }
   })
 })
+
 app.get('/api/user/:id', (req, res) => {
-  console.log(req.params)
+  // console.log(req.params)
 
   const id = req.params.id * 1
   const user = users.find(u => u.id === id)
@@ -30,7 +31,6 @@ app.get('/api/user/:id', (req, res) => {
       message: 'Invalid id'
     })
   }
-
   res.status(200).json({
     status: 'success',
     data: {
@@ -79,24 +79,25 @@ app.put('/api/user/:id', (req, res) => {
       status: 'fail',
       message: ' Invalid user id'
     })
-  }
-  res.status(200).json({
-    status: 'succes',
-    data: {
-      user: newUser
-    }
+  } fs.writeFile(`${__dirname}/data/users.json`, JSON.stringify(users), err => {
+    res.status(200).json({
+      status: 'succes',
+      data: {
+        user: newUser
+      }
+    })
   })
 })
-
 app.delete('/api/user/:id', (req, res) => {
   const userId = req.params.id;
 
   const userIndex = users.findIndex((u) => u.id == userId);
   users.splice(userIndex, 1);
-
-  res.json({
-    status: "success",
-    data: userId,
+  fs.writeFile(`${__dirname}/data/users.json`, JSON.stringify(users), err => {
+    res.json({
+      status: "success",
+      data: userId,
+    });
   });
 });
 
