@@ -73,7 +73,6 @@ app.put('/api/user/:id', (req, res) => {
   const userIndex = users.findIndex((u) => u.id == userId);
   users[userIndex] = newUser;
 
-
   if (req.params.id * 1 > users.length) {
     return res.status(404).json({
       status: 'fail',
